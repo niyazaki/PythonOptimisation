@@ -1,5 +1,14 @@
 import timeit
 
+numbers0 = [n for n in range(10)]
+
+numbers1 = [n for n in range(1000)]
+
+numbers2 = [n for n in range(10000)]
+
+numbers3 = [n for n in range(100000)]
+
+
 def computeFor(n): 
     result = 0
 
@@ -7,12 +16,6 @@ def computeFor(n):
         result += i
 
     return result
-
-repeats = 1000
-t = timeit.Timer('computeFor([1,2,3,4,5])', 'from __main__ import computeFor')
-sec = t.timeit ( repeats ) / repeats
-print ("{} seconds". format (sec))
-
 
 def computeWhile(n):
     result = 0
@@ -24,18 +27,23 @@ def computeWhile(n):
 
     return result
 
-repeats = 1000
-t = timeit.Timer('computeWhile([1,2,3,4,5])', 'from __main__ import computeWhile')
-sec = t.timeit ( repeats ) / repeats
-print ("{} seconds". format (sec))
-
-
 def computeSum(n):
     result = sum(n)
 
     return result
 
 repeats = 1000
-t = timeit.Timer('computeSum([1,2,3,4,5])', 'from __main__ import computeSum')
-sec = t.timeit ( repeats ) / repeats
-print ("{} seconds". format (sec))
+
+for i in range(4) :
+    
+    tFor = timeit.Timer('computeFor(numbers{})'.format(i), 'from __main__ import computeFor, numbers{}'.format(i))
+    secFor = tFor.timeit ( repeats ) / repeats
+    print ("{} : {} seconds". format ("for", secFor))
+
+    tWhile = timeit.Timer('computeWhile(numbers{})'.format(i), 'from __main__ import computeWhile, numbers{}'.format(i))
+    secWhile = tWhile.timeit ( repeats ) / repeats
+    print ("{} : {} seconds". format ("while", secWhile))
+
+    tSum = timeit.Timer('computeSum(numbers{})'.format(i), 'from __main__ import computeSum, numbers{}'.format(i))
+    secSum = tSum.timeit ( repeats ) / repeats
+    print ("{} : {} seconds". format ("sum", secSum))
