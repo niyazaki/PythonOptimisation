@@ -1,6 +1,6 @@
 import timeit
 
-numbers = list(range(1000))
+numbers = list(range(100000))
 
 
 def iterate1(a):
